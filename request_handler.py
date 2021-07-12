@@ -1,8 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from customers.request import get_all_customers, get_single_customer
-from locations.request import get_all_locations, get_single_location
-from animals.request import get_all_animals, get_single_animal
-from employees.request import get_all_employees, get_single_employee
+import json
+from customers.request import create_customer, get_all_customers, get_single_customer
+from locations.request import create_location, get_all_locations, get_single_location
+from animals.request import get_all_animals, get_single_animal, create_animal
+from employees.request import create_employee, get_all_employees, get_single_employee
 
 
 
@@ -23,11 +24,9 @@ class HandleRequests(BaseHTTPRequestHandler):
         # at index 2.
         """Parses url string
         """
-
         path_params = path.split("/")
         resource = path_params[1]
         id = None
-
         # Try to get the item at index 2
         try:
             # Convert the string "1" to the integer 1
@@ -104,13 +103,36 @@ class HandleRequests(BaseHTTPRequestHandler):
     def do_POST(self):
         """Handles POST requests to the server
         """
-        # Set response code to 'Created'
         self._set_headers(201)
-
         content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
-        response = f"received post request:<br>{post_body}"
-        self.wfile.write(response.encode())
+
+        # Convert JSON string to a Python dictionary
+        post_body = json.loads(post_body)
+
+        # Parse the URL
+        (resource, id) = self.parse_url(self.path)
+
+        # Initializations
+        new_animal = None
+        new_location = None
+        new_employee = None
+        new_customer = None
+        # Add a new animal to the list. Don't worry about
+        # the orange squiggle, you'll define the create_animal
+        # function next.
+        if resource == "animals":
+            new_animal = create_animal(post_body)
+            self.wfile.write(f"{new_animal}".encode())
+        elif resource == "locations":
+            new_location = create_location(post_body)
+            self.wfile.write(f"{new_location}".encode())
+        elif resource == "employees":
+            new_employee = create_employee(post_body)
+            self.wfile.write(f"{new_employee}".encode())
+        elif resource == "customers":
+            new_customer = create_customer(post_body)
+            self.wfile.write(f"{new_customer}".encode())
 
     # Here's a method on the class that overrides the parent's method.
     # It handles any PUT request.
