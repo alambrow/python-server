@@ -24,10 +24,12 @@ ANIMALS = [
 
 
 def get_all_animals():
+    """return all animals"""
     return ANIMALS
 
 # Function with a single parameter
 def get_single_animal(id):
+    """return single animal"""
     # Variable to hold the found animal, if it exists
     requested_animal = None
 
