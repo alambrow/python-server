@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from models import Employee, animal
+from models import Employee
 
 EMPLOYEES = [
      {
