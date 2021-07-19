@@ -18,7 +18,7 @@ CREATE TABLE `Animal` (
 	`status` TEXT NOT NULL,
 	`breed` TEXT NOT NULL,
 	`customer_id` INTEGER NOT NULL,
-	`location_id` INTEGER,
+	`location_id` INTEGER NOT NULL,
 	FOREIGN KEY(`customer_id`) REFERENCES `Customer`(`id`),
 	FOREIGN KEY(`location_id`) REFERENCES `Location`(`id`)
 );
