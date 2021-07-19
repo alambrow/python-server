@@ -67,3 +67,5 @@ SELECT
     a.customer_id
 FROM animal a
 WHERE a.id = 1
+
+SELECT * FROM Employee;
