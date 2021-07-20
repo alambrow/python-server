@@ -95,3 +95,5 @@ JOIN Location l
         FROM employee a
         JOIN Location b
             ON b.id = a.location_id;
+
+SELECT * FROM Animal ORDER BY id DESC;
