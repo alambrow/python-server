@@ -83,3 +83,15 @@ SELECT
 FROM Animal a
 JOIN Location l
     ON l.id = a.location_id;
+
+
+        SELECT
+            a.id,
+            a.name,
+            a.address,
+            a.location_id,
+            b.name location_name,
+            b.address location_address
+        FROM employee a
+        JOIN Location b
+            ON b.id = a.location_id;
